@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Between Two Worlds — A Memoir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --ink-soft: #3d3530;
+    --ink-muted: #7a6f68;
+    --ink-faint: #b5a99f;
+    --parchment: #faf6f1;
+    --parchment-warm: #f3ede4;
+    --parchment-deep: #e8dfd3;
+    --accent: #8b4a2f;
+    --accent-soft: #c4855a;
+    --accent-faint: #f0ddd4;
+    --border: rgba(139,74,47,0.15);
+    --shadow: rgba(26,20,16,0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #f0ebe4;
+      --ink-soft: #d4ccc4;
+      --ink-muted: #9a8e85;
+      --ink-faint: #5a5048;
+      --parchment: #15110e;
+      --parchment-warm: #1c1713;
+      --parchment-deep: #231e19;
+      --accent: #c4855a;
+      --accent-soft: #e0a87a;
+      --accent-faint: #2a1a10;
+      --border: rgba(196,133,90,0.2);
+      --shadow: rgba(0,0,0,0.3);
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* — COVER — */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background: var(--parchment-warm);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, transparent 40%, rgba(139,74,47,0.05) 100%);
+    pointer-events: none;
+  }
+
+  .cover-ornament {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 2rem;
+    letter-spacing: 0.3em;
+  }
+
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 2rem;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .cover-subtitle {
+    font-family: 'Lora', serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-bottom: 3.5rem;
+    max-width: 420px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+    margin: 0 auto 3rem;
+  }
+
+  .cover-author {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 4rem;
+  }
+
+  .begin-btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .begin-btn:hover {
+    background: var(--accent);
+    color: var(--parchment);
+  }
+
+  /* — NAVIGATION — */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--parchment-warm);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .nav-progress {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+
+  .progress-bar-wrap {
+    width: 100%;
+    height: 2px;
+    background: var(--parchment-deep);
+    position: absolute;
+    bottom: 0; left: 0;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* — CHAPTERS — */
+  .book-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 5rem 2rem 8rem;
+  }
+
+  .chapter {
+    margin-bottom: 6rem;
+  }
+
+  .chapter-marker {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 0.6rem;
+  }
+
+  .chapter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .chapter-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  .chapter-rule::before, .chapter-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .chapter-rule span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* — PROSE — */
+  .prose {
+    font-family: 'Lora', serif;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.85;
+    color: var(--ink-soft);
+  }
+
+  .prose p {
+    margin-bottom: 1.6em;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .prose p:first-child::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5em;
+    font-weight: 600;
+    float: left;
+    line-height: 0.75;
+    margin: 0.05em 0.12em 0 0;
+    color: var(--accent);
+  }
+
+  .prose em {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Standalone lines — short dramatic sentences */
+  .prose .line {
+    display: block;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin: 2.5rem 0;
+  }
+
+  /* Section break */
+  .section-break {
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--ink-faint);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 3px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.5;
+    text-align: left;
+    margin: 0;
+  }
+
+  .pull-quote p::first-letter { all: unset; }
+
+  /* — TOC — */
+  .toc-section {
+    padding: 3rem 2rem 4rem;
+    background: var(--parchment-warm);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toc-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .toc-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 2rem;
+  }
+
+  .toc-list { list-style: none; }
+
+  .toc-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .toc-list li:hover .toc-chapter-title { color: var(--accent); }
+
+  .toc-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    min-width: 2rem;
+  }
+
+  .toc-chapter-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    flex: 1;
+    transition: color 0.2s;
+  }
+
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--ink-faint);
+    margin: 0 0.75rem;
+    opacity: 0.4;
+    position: relative;
+    top: -4px;
+  }
+
+  /* — FOOTER — */
+  .book-footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--parchment-warm);
+    border-top: 1px solid var(--border);
+  }
+
+  .book-footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  /* — ANIMATION — */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.25s; }
+  .fade-in:nth-child(3) { animation-delay: 0.4s; }
+  .fade-in:nth-child(4) { animation-delay: 0.55s; }
+  .fade-in:nth-child(5) { animation-delay: 0.7s; }
+  .fade-in:nth-child(6) { animation-delay: 0.85s; }
+
+  @media (max-width: 600px) {
+    .book-body { padding: 3rem 1.25rem 6rem; }
+    .toc-section { padding: 2rem 1.25rem 3rem; }
+    .nav { padding: 0.8rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-ornament fade-in">✦</div>
+  <p class="cover-eyebrow fade-in">A Memoir</p>
+  <h1 class="cover-title fade-in">Between<br><em>Two Worlds</em></h1>
+  <p class="cover-subtitle fade-in">A story of love, loss, and the long walk back to oneself</p>
+  <div class="cover-divider fade-in"></div>
+  <p class="cover-author fade-in">Sohail</p>
+  <a href="#toc" class="begin-btn fade-in">Begin Reading</a>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section class="toc-section" id="toc">
+  <div class="toc-inner">
+    <p class="toc-heading">Contents</p>
+    <ul class="toc-list">
+      <li onclick="document.getElementById('chapter-1').scrollIntoView({behavior:'smooth'})">
+        <span class="toc-num">I.</span>
+        <span class="toc-chapter-title">The Word</span>
+        <span class="toc-dots"></span>
+      </li>
+      <li onclick="document.getElementById('chapter-2').scrollIntoView({behavior:'smooth'})">
+        <span class="toc-num">II.</span>
+        <span class="toc-chapter-title">A Confusing Childhood</span>
+        <span class="toc-dots"></span>
+      </li>
+      <li onclick="document.getElementById('chapter-3').scrollIntoView({behavior:'smooth'})">
+        <span class="toc-num">III.</span>
+        <span class="toc-chapter-title">The Girl Who Stood Up</span>
+        <span class="toc-dots"></span>
+      </li>
+      <li onclick="document.getElementById('chapter-4').scrollIntoView({behavior:'smooth'})">
+        <span class="toc-num">IV.</span>
+        <span class="toc-chapter-title">The Evening It Rained</span>
+        <span class="toc-dots"></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="nav" id="stickyNav" style="display:none;">
+  <span class="nav-title">Between Two Worlds</span>
+  <span class="nav-progress" id="progressLabel">0%</span>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</nav>
+
+<!-- BOOK BODY -->
+<main class="book-body" id="bookBody">
+
+  <!-- CHAPTER I -->
+  <article class="chapter" id="chapter-1">
+    <p class="chapter-marker">Chapter I</p>
+    <h2 class="chapter-title">The <em>Word</em></h2>
+    <div class="chapter-rule"><span>✦</span></div>
+
+    <div class="prose">
+      <p>I was at school when everyone gathered in my cabin for the usual evening chatter. It was increment season, and the atmosphere carried a strange excitement. Nobody knew how much of a raise they were about to get, but everyone spoke as if their lives were about to change.</p>
+
+      <p>I sat quietly in my chair, listening more than speaking.</p>
+
+      <p>Then someone turned toward me. "What about you? How much increment are you expecting?"</p>
+
+      <p>I smiled faintly and told them I hadn't even completed a year there yet, so I wasn't eligible for one. The conversation drifted naturally after that, eventually landing on me — my plans, my future, why I was still there. I explained that the job was temporary. Just something to hold onto until I get my life back on track.</p>
+
+      <p>One of them laughed and said, <em>"Then hurry up and escape this jail as soon as possible."</em></p>
+
+      <p>The moment I heard the word <em>jail</em>, my body froze.</p>
+
+      <p>It had been two years since I got released, and somewhere along the way, I had convinced myself I was healed.</p>
+
+      <div class="pull-quote">
+        <p>I wasn't.</p>
+      </div>
+
+      <p>Nausea rose in my stomach instantly. Sweat gathered around my neck and forehead. The voices around me became distant, muffled, almost unreal. I stopped hearing the conversation entirely. Instead, my mind began retracing every sentence that had been spoken, desperately trying to understand how that word had entered the room.</p>
+
+      <span class="line">Jail.</span>
+
+      <p>I kept replaying it in my head.</p>
+
+      <p>Eventually, I calmed down, but not before everyone noticed. "What happened?" someone asked. I shook my head lightly, pretending it was nothing, then turned toward my computer screen and stared at it blankly.</p>
+
+      <p>In reality, I wasn't looking at the screen at all.</p>
+
+      <span class="line">I was looking at my life.</span>
+    </div>
+  </article>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- CHAPTER II -->
+  <article class="chapter" id="chapter-2">
+    <p class="chapter-marker">Chapter II</p>
+    <h2 class="chapter-title">A <em>Confusing</em> Childhood</h2>
+    <div class="chapter-rule"><span>✦</span></div>
+
+    <div class="prose">
+      <p>I had a confusing childhood. I had no real hobbies, no lasting interests, no clear passion pulling me in one direction. At the same time, I was curious about everything. A little bit of this, a little bit of that. I never mastered anything completely, but I gathered fragments from everywhere.</p>
+
+      <p>Because of that, I ended up knowing random things about almost every topic. Nobody could ever predict what I knew and what I didn't. I was the definition of a jack of all trades, master of none.</p>
+
+      <p>I grew up around people from the software industry. Most of my family belonged to that world, so tech conversations became normal to me before I even understood them properly. Somewhere along the way, I developed this strange fascination with IITs at an age when I didn't even know what IIT actually meant.</p>
+
+      <p>The funny thing was, I was never extraordinary in academics.</p>
+
+      <p>I wasn't a topper.</p>
+
+      <p>But for some reason, people always treated me like I was supposed to become one. Expectations followed me everywhere. Teachers expected more. Family expected more. Even when I achieved nothing remarkable, people somehow believed I was capable of something bigger, and disappointment always followed whenever I failed to become that version of myself.</p>
+
+      <p>My school sent me to places like Hyderabad and Kadapa to write entrance exams for institutions like FIITJEE and Narayana. Alhamdulillah, I scored reasonably well throughout school and intermediate, but nothing about me felt exceptional.</p>
+
+      <div class="pull-quote">
+        <p>Looking back now, I realize how protected my life was back then. I never had to ask for money at home. Somehow, I always had enough. At that age, I never understood how fortunate that was.</p>
+      </div>
+
+      <p>Eventually, I joined CBIT — ironically, the same college people used to threaten me with whenever I didn't study seriously. College was fun in a strange, directionless way. Somehow, I survived my first year without understanding how quickly time was moving.</p>
+    </div>
+  </article>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- CHAPTER III -->
+  <article class="chapter" id="chapter-3">
+    <p class="chapter-marker">Chapter III</p>
+    <h2 class="chapter-title">The Girl Who <em>Stood Up</em></h2>
+    <div class="chapter-rule"><span>✦</span></div>
+
+    <div class="prose">
+      <p>During the second year, the lateral entry students joined us, though honestly, I barely noticed who was new and who wasn't. I never paid much attention to girls anyway.</p>
+
+      <p>Everything changed because of one random classroom moment.</p>
+
+      <p>Ajay Kumar sir was discussing some government scheme and asked if there were any SC/ST students in class. In the entire classroom, only one girl stood up.</p>
+
+      <span class="line">That was the first time I noticed Shulamithi.</span>
+
+      <p>At the time, I didn't think much of it. I wasn't instantly fascinated or anything dramatic like that. What caught my attention was how composed she looked. She carried herself differently from everyone else in class. There was dignity in the way she spoke, dressed, and maintained herself. Everything about her felt unusually put together.</p>
+
+      <p>A few weeks later, I heard people talking about how she had argued with the faculty regarding management issues and the increase in supply fees. Most students complained privately and moved on. She openly challenged them.</p>
+
+      <p>That stayed in my mind.</p>
+
+      <p>Some days later, during examinations at Vagdevi College, Tharun and I saw her sitting alone and studying. I walked up to her and casually asked how she planned to get her hall ticket without the college's support after creating problems with the management. We spoke for barely two or three minutes.</p>
+
+      <p>That was the first conversation I ever had with Shulamithi.</p>
+    </div>
+  </article>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- CHAPTER IV -->
+  <article class="chapter" id="chapter-4">
+    <p class="chapter-marker">Chapter IV</p>
+    <h2 class="chapter-title">The Evening <em>It Rained</em></h2>
+    <div class="chapter-rule"><span>✦</span></div>
+
+    <div class="prose">
+      <p>Days passed. One evening after 7 PM, I was sitting at a chai bunk with my friends when I received a WhatsApp message from her asking if I was available for a quick call. I said yes. We ended up talking for almost forty-five minutes.</p>
+
+      <p>It was raining that evening, so I had nowhere else to go. She spoke passionately about the management, about injustice, about wanting to change things. I kept trying to convince her that rebelling against people in power would only damage her reputation and make life harder in the future. But she wouldn't let it go.</p>
+
+      <p>After that night, we spoke almost every day about the same topic. She wanted change. I wanted peace. She believed fighting mattered. I believed survival mattered more.</p>
+
+      <p>Somewhere between those conversations, we became close.</p>
+
+      <p>We followed each other on Instagram. We shared opinions, jokes, frustrations, and random details about our lives. Our ideologies aligned surprisingly well, and talking to her started feeling effortless.</p>
+
+      <p>Around the second week of October, the Israel–Palestine war began dominating social media and everyday conversations. One night while we were texting, she suddenly asked me to keep our friendship a secret. She specifically told me not to tell anyone we spoke regularly.</p>
+
+      <p>It felt strange coming from someone as fearless as her. I asked why. She replied that she didn't want people assuming we were together.</p>
+
+      <p>That was the moment everything changed.</p>
+
+      <p>I could have simply agreed and moved on, but instead I said: <em>"You're scared of the idea of us being together, while I'm here thinking maybe I actually have a chance."</em></p>
+
+      <div class="pull-quote">
+        <p>That single sentence changed the direction of both our lives.</p>
+      </div>
+
+      <p>Looking back now, I think that was the exact moment I gave her hope.</p>
+
+      <p>Within a week, we became much closer. Then I tried to push her away. It took me three days to convince her that we were not meant to be together. She cried constantly. I still remember how small and helpless she sounded on the phone. I felt horrible. And relieved.</p>
+
+      <p>The following days at college became painfully awkward. I avoided her whenever possible, yet I constantly observed her from a distance, trying to read her mood and make sure she was okay. I told myself I was protecting both of us.</p>
+
+      <span class="line">Maybe I was only protecting myself.</span>
+
+      <p>Then came January 29th — the Principles of Operating Systems exam. I rushed to the Apollo pharmacy near Rajiv Circle, bought medicine, travelled all the way to Vagdevi, handed it to her, spoke briefly, and then rushed back to SRIT to finish my own exam.</p>
+
+      <p>A little later, she texted me again. She said she felt too weak to go home alone. So I went back.</p>
+
+      <p>I sat beside her at the bus stop while the evening slowly darkened around us. We spoke quietly for a long time, and somewhere during that conversation, she admitted how much she had missed me.</p>
+
+      <p>Until then, nobody had ever truly longed for me. Nobody had chosen me that way. No matter how much I pushed her away, she kept finding her way back to me. And I would be lying if I said that I didn't feel good.</p>
+
+      <p>Eventually, I offered to drop her off at home on my bike. The sky was cloudy, the sunlight fading into evening. Halfway through the ride, she wrapped her arms around me tightly from behind and kissed my neck. The hug was so tight I could almost feel pressure against my ribs.</p>
+
+      <p>In that moment, I lost whatever control I thought I had left.</p>
+
+      <p>I dropped her near Chapadu Junction, from where she took an auto home. That day, we found our way back to each other. After that, we became inseparable. We spoke every single day — phone calls, Instagram reels, endless conversations, late-night video calls.</p>
+
+      <span class="line">We got addicted to each other frighteningly fast.</span>
+    </div>
+  </article>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="book-footer">
+  <p>More chapters coming soon.</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('stickyNav');
+  const cover = document.getElementById('cover');
+  const bar = document.getElementById('progressBar');
+  const label = document.getElementById('progressLabel');
+  const body = document.getElementById('bookBody');
+
+  window.addEventListener('scroll', () => {
+    const coverBottom = cover.offsetTop + cover.offsetHeight;
+    if (window.scrollY > coverBottom - 60) {
+      nav.style.display = 'flex';
+    } else {
+      nav.style.display = 'none';
+    }
+
+    const bodyTop = body.offsetTop;
+    const bodyHeight = body.offsetHeight;
+    const scrolled = window.scrollY + window.innerHeight - bodyTop;
+    const pct = Math.min(100, Math.max(0, Math.round((scrolled / bodyHeight) * 100)));
+    bar.style.width = pct + '%';
+    label.textContent = pct + '%';
+  });
+</script>
+</body>
+</html>
